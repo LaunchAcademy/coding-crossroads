@@ -27,9 +27,9 @@ const App = (props) => {
       <Switch>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <Route exact to="/" component={ResourceList}/>
+        <Route exact path="/" component={ResourceList}/>
         <Route exact path="/resources/:id" component={ResourceDetails}/>
-        <Route exact to="/resources" component={ResourceList}/>
+        <Route exact path="/resources" component={ResourceList}/>
       </Switch>
     </Router>
   );
