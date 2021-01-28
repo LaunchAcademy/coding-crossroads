@@ -10,8 +10,7 @@ resourcesRouter.get("/", async (req, res) => {
     const serializedResources = resources.map(resource => ResourceSerializer.getSummary(resource))
 
     return res.status(200).json({ resources: serializedResources })
-  } catch(error){
-    console.log(error)
+  } catch (error){
     return res.status(500).json({ errors: error })
   }
 })
@@ -19,10 +18,10 @@ resourcesRouter.get("/", async (req, res) => {
 resourcesRouter.get("/:id", async (req,res) => {
   try {
     const resource = await Resource.query().findById(req.params.id).throwIfNotFound()
-    const serializedResource = ResourceSerializer.getDetails(resource)
+    const serializedResource = await ResourceSerializer.getDetails(resource)
     return res.status(200).json({ resource: serializedResource })
-  } catch (err) {
-    return res.status(500).json({ errors: err })
+  } catch (error) {
+    return res.status(500).json({ errors: error })
   }
 })
 

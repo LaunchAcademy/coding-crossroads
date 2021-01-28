@@ -1,11 +1,11 @@
 const Model = require("./Model")
 
 class Resource extends Model {
-  static get tableName(){
+  static get tableName() {
     return "resources"
   }
 
-static get jsonSchema(){
+static get jsonSchema() {
     return {
       type: "object",
       required: ["title", "description", "resourceType"],
@@ -27,6 +27,22 @@ static get jsonSchema(){
       "podcast",
       "video"
     ]
+  }
+
+
+  static get relationMappings() {
+    const Review = require("./Review")
+
+    return {
+      reviews: {
+        relation: Model.HasManyRelation,
+        modelClass: Review,
+        join: {
+          from: "resources.id",
+          to: "reviews.resourceId"
+        }
+      }
+    }
   }
 }
 

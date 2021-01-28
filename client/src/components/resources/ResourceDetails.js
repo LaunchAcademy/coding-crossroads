@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
+import getResource from "../../apiRequests/getResource"
+import ReviewTile from "../reviews/ReviewTile"
+
 const ResourceDetails = (props) => {
-  const [resource, setResource] = useState({})
-
-  const fetchResource = async () => {
-    const id = props.match.params.id
-    try {
-      const response = await fetch(`/api/v1/resources/${id}`)
-      if (!response.ok) {
-        const errorMessage = `${response.status} (${response.statusText})`
-        const error = new Error(errorMessage)
-        throw error
-      } else {
-        const parsedResponse = await response.json()
-        setResource(parsedResponse.resource)
-      }
-    } catch (err) {
-      console.error(`Error in Fetch: ${err.message}`)
-    }
-  }
-
+  const [resource, setResource] = useState({
+    reviews: []
+  })
+  
   useEffect(() => {
-    fetchResource()
+    const id = props.match.params.id
+    getResource(id).then((resource) => {
+      setResource(resource)
+    })
   }, [])
 
+  const reviewTiles = resource.reviews.map((review) => {
+    return (
+      <ReviewTile 
+        key={review.id}
+        review={review}
+      />
+    )
+  })
+  
   return(
     <section>
       <Link to="/resources">
@@ -38,8 +38,12 @@ const ResourceDetails = (props) => {
         </p>
         <p>Resource Type: {resource.resourceType}</p>
       </div>
+
+      <div>
+        {reviewTiles}
+      </div>
     </section>
   )
 }
 
-export default ResourceDetails 
+export default ResourceDetails

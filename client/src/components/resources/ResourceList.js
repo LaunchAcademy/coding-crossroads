@@ -28,7 +28,7 @@ const ResourceList = props => {
         <h1>Check Out the Latest Coding Resources</h1>
       </header>
 
-      <main>
+      <main className="callout secondary">
         <ul>
           {resourceTiles}
         </ul>
