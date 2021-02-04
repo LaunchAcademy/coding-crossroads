@@ -2,11 +2,6 @@
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
 
-@import "motion-ui";
-@include motion-ui-transitions;
-@include motion-ui-animations;
-@include orbit-wrapper;
-
 // place global css here
 *,
 *::before,
@@ -18,13 +13,3 @@
   -moz-tab-size: 4;
   tab-size: 4;
 }
-
-// these classes shouldn't be necessary
-// .orbit-container { height:500px; }  
-
-// .orbit-container .orbit-slides-container > * {
-//   position: relative;
-//   margin-left: 0;
-//   float: left;
-//   height: 100%;
-// }

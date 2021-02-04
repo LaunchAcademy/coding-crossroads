@@ -4,8 +4,6 @@ import ResourceForm from "./ResourceForm.js"
 import ResourceTile from "./ResourceTile.js"
 import getResources from "../../apiRequests/getResources.js"
 
-import Carousel from "./Carousel"
-
 const ResourceList = props => {
   const [resources, setResources] = useState([])
   
@@ -51,24 +49,22 @@ const ResourceList = props => {
       />
     )
   })
-
-    // <div> 
-    //   <header>
-    //     <h1>Check Out the Latest Coding Resources</h1>
-    //   </header>
-      
-    //   <ResourceForm 
-    //     addResource={addResource}
-    //   />
-
-    //   <main className="callout secondary">
-    //     <ul>
-    //       {resourceTiles}
-    //     </ul>
-    //   </main>
-    // </div>
   return(
-    <Carousel />
+    <div> 
+      <header>
+        <h1>Check Out the Latest Coding Resources</h1>
+      </header>
+      
+      <ResourceForm 
+        addResource={addResource}
+      />
+
+      <main className="callout secondary">
+        <ul>
+          {resourceTiles}
+        </ul>
+      </main>
+    </div>
   )
 }
 
