@@ -5,6 +5,8 @@ const { ValidationError } = objection
 import multer from "multer"
 const upload = multer({ dest: "uploads/" })
 
+import uploadImage from "../../../services/imageUpload.js"
+
 import Resource from "../../../models/Resource.js"
 import ResourceSerializer from "../../../serializers/ResourceSerializer.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
@@ -32,8 +34,18 @@ resourcesRouter.get("/:id", async (req, res) => {
   }
 })
 
-resourcesRouter.post("/", upload.single("image"), async (req, res) => {
+resourcesRouter.post("/", async (req, res) => {
   debugger
+  const singleUpload = uploadImage.single("image")
+  singleUpload(req, res, function(err) {
+    debugger
+    if (err) {
+      return res.status(422).json({ errors: [{ title: "Image Upload Error", detail: err.message }] })
+    }
+    debugger
+
+    return res.status(201).json({})
+  })
   const { body } = req
   const cleanedInput = cleanUserInput(body)
   debugger
