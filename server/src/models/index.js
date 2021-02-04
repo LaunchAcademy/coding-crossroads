@@ -3,4 +3,4 @@ const User = require("./User.js")
 const Resource = require("./Resource.js")
 const Review = require("./Review.js")
 
-module.exports = { Resource, User, Review };
+module.exports = { Resource, User, Review }

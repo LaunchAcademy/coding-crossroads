@@ -1,8 +1,15 @@
-import express from "express";
+import express from "express"
+import objection from "objection"
+const { ValidationError } = objection
+
+import multer from "multer"
+const upload = multer({ dest: "uploads/" })
 
 import Resource from "../../../models/Resource.js"
 import ResourceSerializer from "../../../serializers/ResourceSerializer.js"
-const resourcesRouter = new express.Router();
+import cleanUserInput from "../../../services/cleanUserInput.js"
+
+const resourcesRouter = new express.Router()
 
 resourcesRouter.get("/", async (req, res) => {
   try {
@@ -15,7 +22,7 @@ resourcesRouter.get("/", async (req, res) => {
   }
 })
 
-resourcesRouter.get("/:id", async (req,res) => {
+resourcesRouter.get("/:id", async (req, res) => {
   try {
     const resource = await Resource.query().findById(req.params.id).throwIfNotFound()
     const serializedResource = await ResourceSerializer.getDetails(resource)
@@ -25,5 +32,27 @@ resourcesRouter.get("/:id", async (req,res) => {
   }
 })
 
+resourcesRouter.post("/", upload.single("image"), async (req, res) => {
+  debugger
+  const { body } = req
+  const cleanedInput = cleanUserInput(body)
+  debugger
+  const newData = {
+    ...cleanedInput,
+    userId: req.user.id
+  }
+  debugger
+  try {
+    const resource = await Resource.query().insertAndFetch(newData)
+    res.status(201).json({ resource })
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      res.status(422).json({ errors: error.data })
+    } else {
+      res.status(500).json({ errors: error })
+    }
+  }
+})
 
-export default resourcesRouter;
+
+export default resourcesRouter

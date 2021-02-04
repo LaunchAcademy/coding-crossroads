@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import SignOutButton from "../authentication/SignOutButton";
+import React from "react"
+import { Link } from "react-router-dom"
+
+import SignOutButton from "../authentication/SignOutButton"
 
 const TopBar = ({ user }) => {
   const unauthenticatedListItems = [
@@ -11,14 +12,14 @@ const TopBar = ({ user }) => {
       <Link to="/users/new" className="button">
         Sign Up
       </Link>
-    </li>,
-  ];
+    </li>
+  ]
 
   const authenticatedListItems = [
     <li key="sign-out">
       <SignOutButton />
-    </li>,
-  ];
+    </li>
+  ]
 
   return (
     <div className="top-bar">
@@ -34,7 +35,7 @@ const TopBar = ({ user }) => {
         <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TopBar;
+export default TopBar
