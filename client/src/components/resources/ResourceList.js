@@ -6,9 +6,9 @@ import getResources from "../../apiRequests/getResources.js"
 
 import Carousel from "./Carousel"
 
-const ResourceList = props => {
+const ResourceList = (props) => {
   const [resources, setResources] = useState([])
-  
+
   useEffect(() => {
     getResources().then((data) => {
       setResources(data)
@@ -22,7 +22,7 @@ const ResourceList = props => {
       const response = await fetch("/api/v1/resources", {
         method: "POST",
         headers: new Headers({
-          "Accept": "image/jpeg"
+          Accept: "image/jpeg"
         }),
         body: formPayload
       })
@@ -32,44 +32,33 @@ const ResourceList = props => {
       const responseBody = await response.json()
       debugger
       if (responseBody.resource) {
-        setResources([
-          ...resources,
-          responseBody.resource
-        ])
+        setResources([...resources, responseBody.resource])
       }
     } catch (error) {
       console.error(error.message)
     }
   }
 
-  const resourceTiles = resources.map(resource => {
-    return(
-       <ResourceTile 
-        key={resource.id}
-        id={resource.id}
-        title={resource.title}
-      />
-    )
+  const resourceTiles = resources.map((resource) => {
+    return <ResourceTile key={resource.id} id={resource.id} title={resource.title} />
   })
 
-    // <div> 
-    //   <header>
-    //     <h1>Check Out the Latest Coding Resources</h1>
-    //   </header>
-      
-    //   <ResourceForm 
-    //     addResource={addResource}
-    //   />
+  // <div>
+  //   <header>
+  //     <h1>Check Out the Latest Coding Resources</h1>
+  //   </header>
 
-    //   <main className="callout secondary">
-    //     <ul>
-    //       {resourceTiles}
-    //     </ul>
-    //   </main>
-    // </div>
-  return(
-    <Carousel />
-  )
+  //   <ResourceForm
+  //     addResource={addResource}
+  //   />
+
+  //   <main className="callout secondary">
+  //     <ul>
+  //       {resourceTiles}
+  //     </ul>
+  //   </main>
+  // </div>
+  return <Carousel />
 }
 
 export default ResourceList

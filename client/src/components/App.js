@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { hot } from "react-hot-loader/root"
 
+import "foundation-sites"
+import $ from "jquery"
+
 import "../assets/scss/main.scss"
 import getCurrentUser from "../services/getCurrentUser"
 
@@ -18,13 +21,14 @@ const App = (props) => {
     try {
       const user = await getCurrentUser()
       setCurrentUser(user)
-    } catch(err) {
+    } catch (err) {
       setCurrentUser(null)
     }
   }
 
   useEffect(() => {
     fetchCurrentUser()
+    $(document).foundation()
   }, [])
 
   return (
@@ -33,12 +37,12 @@ const App = (props) => {
       <Switch>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <Route exact path="/" component={ResourceList} user={currentUser}/>
+        <Route exact path="/" component={ResourceList} user={currentUser} />
         {/* <Route exact path="/">
           <ResourceList user={currentUser}/>
         </Route> */}
-        <Route exact path="/resources" component={ResourceList}/>
-        <Route exact path="/resources/:id" component={ResourceDetails}/>
+        <Route exact path="/resources" component={ResourceList} />
+        <Route exact path="/resources/:id" component={ResourceDetails} />
       </Switch>
     </Router>
   )
