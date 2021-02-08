@@ -33,5 +33,5 @@ const uploadImage = multer({
   })
 })
 
-// export default uploadImage
-module.exports = uploadImage
+export default uploadImage
+// module.exports = uploadImage

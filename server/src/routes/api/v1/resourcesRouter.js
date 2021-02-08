@@ -3,7 +3,7 @@ import objection from "objection"
 const { ValidationError } = objection
 
 import multer from "multer"
-const upload = multer({ dest: "uploads/" })
+// const upload = multer({ dest: "uploads/" })
 
 import uploadImage from "../../../services/imageUpload.js"
 
