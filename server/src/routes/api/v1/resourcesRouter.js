@@ -3,15 +3,18 @@ import objection from "objection"
 const { ValidationError } = objection
 
 import multer from "multer"
-// const upload = multer({ dest: "uploads/" })
+const upload = multer()
 
-import uploadImage from "../../../services/imageUpload.js"
+import uploadImage from "../../../services/uploadImage.cjs"
 
 import Resource from "../../../models/Resource.js"
 import ResourceSerializer from "../../../serializers/ResourceSerializer.js"
 import cleanUserInput from "../../../services/cleanUserInput.js"
 
+
 const resourcesRouter = new express.Router()
+
+// resourcesRouter.use(upload.any())
 
 resourcesRouter.get("/", async (req, res) => {
   try {
@@ -34,27 +37,32 @@ resourcesRouter.get("/:id", async (req, res) => {
   }
 })
 
-resourcesRouter.post("/", async (req, res) => {
+// resourcesRouter.post("/", uploadImage.single("image"), async (req, res) => {
+resourcesRouter.post("/", upload.any(), async (req, res) => {
   debugger
-  const singleUpload = uploadImage.single("image")
-  singleUpload(req, res, function(err) {
+  try {
+    const singleUpload = uploadImage.single("image")
+    await singleUpload(req, res, function(err) {
+      debugger
+      if (err) {
+        return res.status(422).json({ errors: [{ title: "Image Upload Error", detail: err.message }] })
+      }
+      debugger
+
+      return res.status(201).json({})
+    })
+    
+    const { body } = req
+    const cleanedInput = cleanUserInput(body)
+    
     debugger
-    if (err) {
-      return res.status(422).json({ errors: [{ title: "Image Upload Error", detail: err.message }] })
+    
+    const newData = {
+      ...cleanedInput,
+      userId: req.user.id
     }
     debugger
 
-    return res.status(201).json({})
-  })
-  const { body } = req
-  const cleanedInput = cleanUserInput(body)
-  debugger
-  const newData = {
-    ...cleanedInput,
-    userId: req.user.id
-  }
-  debugger
-  try {
     const resource = await Resource.query().insertAndFetch(newData)
     res.status(201).json({ resource })
   } catch (error) {

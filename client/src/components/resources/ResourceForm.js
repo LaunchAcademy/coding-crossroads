@@ -7,7 +7,7 @@ const ResourceForm = (props) => {
     description: "",
     url: "",
     resourceType: "",
-    image: ""
+    image: {}
   })
   const [uploadedPhoto, setUploadedPhoto] = useState([{}])
 
@@ -49,7 +49,7 @@ const ResourceForm = (props) => {
   }
  
   return (
-    <form onSubmit={handleSubmit} className="callout">
+    <form className="callout" onSubmit={handleSubmit}>
       <label htmlFor="title">Title:
         <input
           type="text"
