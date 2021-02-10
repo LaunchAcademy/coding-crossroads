@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const tableName = "users";
+const tableName = "users"
 
 /**
  * @typedef {import("knex")} Knex

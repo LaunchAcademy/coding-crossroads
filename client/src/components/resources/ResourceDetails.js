@@ -39,7 +39,10 @@ const ResourceDetails = (props) => {
         <p>Resource Type: {resource.resourceType}</p>
       </div>
 
-      <div>
+      <img src={resource.image} />
+      
+      <div className="callout">
+        <h4>Reviews</h4>
         {reviewTiles}
       </div>
     </section>

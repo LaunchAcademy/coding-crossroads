@@ -7,6 +7,6 @@ const ResourceTile = ({ id, title }) => {
       <li>{title}</li>
     </Link>
   )
-};
+}
 
-export default ResourceTile;
+export default ResourceTile

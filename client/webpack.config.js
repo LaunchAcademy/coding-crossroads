@@ -1,20 +1,20 @@
-const path = require("path");
-const webpack = require("webpack");
+const path = require("path")
+const webpack = require("webpack")
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 const isDevelopment = ["development", "test", "e2e"].includes(
   process.env.NODE_ENV || "development"
-);
+)
 
-const initialEntryPoints = isDevelopment ? ["webpack-hot-middleware/client?reload=true"] : [];
+const initialEntryPoints = isDevelopment ? ["webpack-hot-middleware/client?reload=true"] : []
 
-let reactDomAlias = {};
+let reactDomAlias = {}
 if (isDevelopment) {
   reactDomAlias = {
     "react-dom": "@hot-loader/react-dom",
-  };
+  }
 }
 module.exports = {
   entry: [...initialEntryPoints, path.join(__dirname, "./src/main.js")],
@@ -75,6 +75,9 @@ module.exports = {
             loader: "sass-loader",
             options: {
               sourceMap: isDevelopment,
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, "../node_modules/motion-ui/src")]
+              },
             },
           },
         ],
@@ -107,4 +110,4 @@ module.exports = {
       },
     ],
   },
-};
+}
