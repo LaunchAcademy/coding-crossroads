@@ -20,12 +20,6 @@ const ResourceForm = (props) => {
   }
 
   const handleFileUpload = (acceptedFiles) => {
-    // setResource({
-    //   ...resource, 
-    //   acceptedFiles.map(file => Object.assign(file, {
-    //   preview: URL.createObjectURL(file)
-    // }))})
-
     setUploadedPhoto(acceptedFiles.map(file => Object.assign(file, {
       preview: URL.createObjectURL(file)
     })))
@@ -44,7 +38,7 @@ const ResourceForm = (props) => {
     body.append("url", resource.url)
     body.append("resourceType", resource.resourceType)
     body.append("image", resource.image)
-    // debugger
+    
     props.addResource(body)
   }
  

@@ -14,22 +14,18 @@ const ResourceList = props => {
   }, [])
 
   const addResource = async (formPayload) => {
-    // debugger
-    // "Content-Type": "application/json",
-    // "Content-Type": "multipart/form-data",
-    // headers: new Headers({
-    //   "Accept": "image/jpeg"
-    // }),
     try {
       const response = await fetch("/api/v1/resources", {
         method: "POST",
+        headers: new Headers({
+          "Accept": "image/jpeg"
+        }),
         body: formPayload
       })
       if (!response.ok) {
         throw new Error(`${response.status} (${response.statusText})`)
       }
       const responseBody = await response.json()
-      debugger
       if (responseBody.resource) {
         setResources([
           ...resources,

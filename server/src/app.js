@@ -8,9 +8,6 @@ import configuration from "./config.js"
 import addMiddlewares from "./middlewares/addMiddlewares.js"
 import rootRouter from "./routes/rootRouter.js"
 
-import multer from "multer"
-const upload = multer()
-
 const __filename = fileURLToPath(import.meta.url)
 
 const __dirname = path.dirname(__filename)

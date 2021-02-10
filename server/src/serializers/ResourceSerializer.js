@@ -12,7 +12,7 @@ class ResourceSerializer {
   }
 
   static async getDetails(resource) {
-    const allowedAttributes = ["id", "title", "description", "url", "resourceType"]
+    const allowedAttributes = ["id", "title", "description", "url", "resourceType", "image"]
     let serializedResource = {}
 
     for (const attribute of allowedAttributes) {
